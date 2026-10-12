@@ -1,0 +1,77 @@
+{
+  "name": "maroutine-workspace",
+  "version": "2.1.2",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "start": "npm run start --workspace @maroutine/pwa",
+    "android": "npm run android --workspace @maroutine/pwa",
+    "ios": "npm run ios --workspace @maroutine/pwa",
+    "web": "npm run web --workspace @maroutine/pwa",
+    "dev:landing": "npm run dev --workspace @maroutine/landing",
+    "build:landing": "npm run build --workspace @maroutine/landing",
+    "preview:landing": "npm run preview --workspace @maroutine/landing",
+    "check:landing": "npm run check --workspace @maroutine/landing",
+    "dev:pwa": "npm run web --workspace @maroutine/pwa",
+    "build:pwa": "npm run web:build:prod --workspace @maroutine/pwa",
+    "build:pwa:cloudflare": "npm run web:build:cloudflare --workspace @maroutine/pwa",
+    "test:pwa": "npm run pwa:contract:test --workspace @maroutine/pwa",
+    "lint:pwa": "npm run lint --workspace @maroutine/pwa",
+    "build": "npm run build:landing && npm run build:pwa && node ./scripts/assemble-dist.mjs",
+    "web:build:prod": "npm run build",
+    "web:serve:dist": "node ./scripts/serve-dist.mjs",
+    "validate:landing": "node ./scripts/validate-landing.mjs",
+    "validate:pwa": "npm run validate:pwa --workspace @maroutine/pwa && node ./scripts/validate-combined-dist.mjs",
+    "validate:pwa:cloudflare": "npm run validate:cloudflare --workspace @maroutine/pwa",
+    "validate:pwa:deploy-env": "node ./apps/pwa/scripts/verify-cloudflare-deploy-env.mjs",
+    "verify:pwa:production": "node ./apps/pwa/scripts/verify-production-deployment.mjs",
+    "deploy:pwa:cloudflare": "npm run build:pwa:cloudflare && npm run validate:pwa:cloudflare && wrangler pages deploy dist --cwd apps/pwa --project-name maroutine-app --branch main && npm run verify:pwa:production",
+    "validate": "npm run validate:landing && npm run validate:pwa",
+    "e2e:pwa": "npm run e2e:pwa --workspace @maroutine/pwa",
+    "e2e:pwa:build": "npm run build && npm run validate && npm run e2e:pwa",
+    "pwa:contract:test": "npm run pwa:contract:test --workspace @maroutine/pwa",
+    "tsc": "npm run tsc --workspace @maroutine/pwa",
+    "lint": "npm run lint:pwa && npm run check:landing",
+    "format": "npm run format --workspace @maroutine/pwa",
+    "sync:stickers:public": "npm run sync:stickers:public --workspace @maroutine/pwa",
+    "lint:stickers:pages": "npm run lint:stickers:pages --workspace @maroutine/pwa",
+    "lint:colors": "npm run lint:colors --workspace @maroutine/pwa",
+    "lint:contrast": "npm run lint:contrast --workspace @maroutine/pwa",
+    "lint:theme:contract": "npm run lint:theme:contract --workspace @maroutine/pwa",
+    "lint:theme:shell": "npm run lint:theme:shell --workspace @maroutine/pwa",
+    "lint:tokens:legacy": "npm run lint:tokens:legacy --workspace @maroutine/pwa",
+    "lint:tokens:legacy:strict": "npm run lint:tokens:legacy:strict --workspace @maroutine/pwa",
+    "qa:theme": "npm run qa:theme --workspace @maroutine/pwa",
+    "web:env:check": "npm run web:env:check --workspace @maroutine/pwa",
+    "test:e8-r09": "npm run test:e8-r09 --workspace @maroutine/pwa",
+    "test:e9-r11": "npm run test:e9-r11 --workspace @maroutine/pwa",
+    "test:e11-t04": "npm run test:e11-t04 --workspace @maroutine/pwa",
+    "test:e11-t12": "npm run test:e11-t12 --workspace @maroutine/pwa",
+    "test:e11-t13": "npm run test:e11-t13 --workspace @maroutine/pwa",
+    "test:e11-t16": "npm run test:e11-t16 --workspace @maroutine/pwa",
+    "test:e11-t17": "npm run test:e11-t17 --workspace @maroutine/pwa",
+    "test:e13-t07": "npm run test:e13-t07 --workspace @maroutine/pwa",
+    "test:e15-t04": "npm run test:e15-t04 --workspace @maroutine/pwa",
+    "test:e16-rewards-history": "npm run test:e16-rewards-history --workspace @maroutine/pwa",
+    "test:e18-t06": "npm run test:e18-t06 --workspace @maroutine/pwa"
+  },
+  "engines": {
+    "node": ">=20.19.5"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true,
+    "esbuild@0.27.7": true,
+    "fsevents@2.3.2": true,
+    "fsevents@2.3.3": true,
+    "unrs-resolver@1.11.1": true,
+    "sharp@0.35.5": true
+  },
+  "devDependencies": {
+    "wrangler": "4.86.0"
+  },
+  "overrides": {
+    "sharp": "0.35.5"
+  }
+}

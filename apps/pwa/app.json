@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "Maroutine",
+    "slug": "routine",
+    "version": "2.1.2",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FF6B6B"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.yourcompany.routine",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Permet de prendre une photo pour l'avatar."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FF6B6B"
+      },
+      "package": "com.yourcompany.routine"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single",
+      "backgroundColor": "#FFF9F7"
+    },
+    "scheme": "routine",
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Fredoka_400Regular.ttf",
+            "./assets/fonts/Fredoka_600SemiBold.ttf",
+            "./assets/fonts/Fredoka_700Bold.ttf"
+          ]
+        }
+      ]
+    ],
+    "experiments": {
+      "baseUrl": "/app",
+      "typedRoutes": true
+    }
+  }
+}

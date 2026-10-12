@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist/e16-rewards-history-tests",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "target": "ES2019",
+    "isolatedModules": false
+  },
+  "include": [
+    "tests/e16-rewards-history/**/*.ts",
+    "src/features/rewards/services/historyMapping.ts",
+    "src/features/rewards/services/historyPeriod.ts",
+    "src/features/rewards/services/rewardValidation.ts",
+    "src/features/rewards/types/index.ts",
+    "src/shared/pwa/appConfig.ts",
+    "src/shared/pwa/domainRedirect.ts",
+    "src/shared/pwa/installState.ts",
+    "src/shared/pwa/versionCheck.ts",
+    "src/shared/db/supabaseTypes.ts"
+  ]
+}

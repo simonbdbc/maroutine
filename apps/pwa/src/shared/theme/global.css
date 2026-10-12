@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    @apply bg-white text-black;
+  }
+
+  * {
+    /* Reset tap highlight */
+    -webkit-tap-highlight-color: transparent;
+  }
+}

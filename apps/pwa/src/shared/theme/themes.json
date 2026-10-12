@@ -1,0 +1,13 @@
+{
+  "defaultTheme": "coralSunrise",
+  "theme": {
+    "primary": "#FF6B6B",
+    "secondary": "#FFD700",
+    "grey": "#E2E8F3",
+    "white": "#FFF9F7",
+    "black": "#000000",
+    "success": "#15803D",
+    "error": "#DC2626",
+    "warning": "#B45309"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist/e18-t06-tests",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "target": "ES2019",
+    "isolatedModules": false
+  },
+  "include": [
+    "tests/e18-t06/**/*.ts",
+    "src/features/preferences/utils/layoutPreferencesCore.ts",
+    "src/features/home/utils/homeRoutineTabs.ts"
+  ]
+}

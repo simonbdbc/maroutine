@@ -1,0 +1,21 @@
+export { LayoutPreferencesProvider, useLayoutPreferences } from "./hooks/useLayoutPreferences";
+export {
+  DEFAULT_LAYOUT_PREFERENCES,
+  FIXED_SIDE_MENU_MIN_WIDTH,
+  LAYOUT_SMARTPHONE_MAX_WIDTH,
+  ROUTINE_ADAPTED_COLUMN_MIN_WIDTH,
+  ROUTINE_REGULAR_COLUMN_MIN_WIDTH,
+  canUseFixedSideMenuByContext,
+  isSmartphoneLayoutViewportByContext,
+  normalizeLayoutPreferences,
+  resolveEffectiveSideMenuMode,
+  resolveRoutineCompactLayout,
+  resolveRoutineColumnCount,
+  resolveRoutineColumnMinWidth,
+  type LayoutPreferences,
+  type LayoutViewportContext,
+  type LayoutViewportPlatform,
+  type RoutineDisplayMode,
+  type RoutineLayoutMode,
+  type SideMenuMode,
+} from "./utils/layoutPreferencesCore";

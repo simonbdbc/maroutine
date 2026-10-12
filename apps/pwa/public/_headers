@@ -1,0 +1,47 @@
+/app/*
+  Content-Security-Policy-Report-Only: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; manifest-src 'self'; worker-src 'self' blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://accounts.google.com; form-action 'self'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+
+/app/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/app/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=0, must-revalidate
+
+/app/version.json
+  Content-Type: application/json
+  Cache-Control: public, max-age=0, must-revalidate
+
+/app/pwa-build.json
+  Content-Type: application/json; charset=utf-8
+  Cache-Control: no-store
+
+/app/service-worker.js
+  Content-Type: application/javascript; charset=utf-8
+  Cache-Control: no-store, max-age=0
+
+/app/install-prompt-bridge.js
+  Content-Type: application/javascript; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/app/offline.html
+  Content-Type: text/html; charset=utf-8
+  Cache-Control: public, max-age=86400
+
+/app/icons/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/app/stickers/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/app/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/app/_expo/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/app/screenshots/*
+  Cache-Control: public, max-age=86400

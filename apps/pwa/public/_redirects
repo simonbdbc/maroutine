@@ -1,0 +1,18 @@
+# Cloudflare Pages: la landing occupe la racine, donc les routes profondes de
+# l'application doivent explicitement revenir vers le shell Expo sous /app.
+/login /app/login 301
+/home /app/home 301
+/profiles /app/profiles 301
+/profiles/rewards /app/profiles/rewards 301
+/profiles/builder /app/profiles/builder 301
+/settings /app/settings 301
+/install /app/install 301
+/uninstall /app/uninstall 301
+/pwa /app/pwa 301
+/rewards /app/rewards 301
+/catalog /app/catalog 301
+/history /app/history 301
+/account /app/account 301
+/offline /app/offline 301
+/createurs /app/createurs 301
+/app/* /app/index.html 200

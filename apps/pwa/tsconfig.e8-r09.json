@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist/e8-r09-tests",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "target": "ES2019",
+    "isolatedModules": false
+  },
+  "include": [
+    "tests/e8-r09/**/*.ts",
+    "src/features/catalog/services/builderDraftOps.ts",
+    "src/features/catalog/services/builderValidation.ts",
+    "src/features/catalog/types/index.ts",
+    "src/features/home/services/routineMapper.ts",
+    "src/features/home/types/index.ts",
+    "src/types/metro-require-context.d.ts",
+    "src/shared/db/supabaseTypes.ts",
+    "src/shared/utils/colorUtils.ts"
+  ]
+}

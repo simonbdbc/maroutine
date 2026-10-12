@@ -1,0 +1,86 @@
+{
+  "id": "/app/",
+  "name": "Maroutine",
+  "short_name": "Maroutine",
+  "description": "Application de routines quotidiennes gamifiees pour enfants.",
+  "lang": "fr-FR",
+  "dir": "ltr",
+  "start_url": "/app/",
+  "scope": "/app/",
+  "display": "standalone",
+  "display_override": ["standalone"],
+  "orientation": "portrait",
+  "background_color": "#FFF9F7",
+  "theme_color": "#FF6B6B",
+  "categories": ["education", "kids", "productivity"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/app/icons/icon-192-20260604.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/app/icons/icon-512-20260604.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/app/icons/icon-maskable-192-20260604.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/app/icons/icon-maskable-512-20260604.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/app/screenshots/install-desktop-wide.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Maroutine sur ordinateur"
+    },
+    {
+      "src": "/app/screenshots/install-mobile.jpg",
+      "sizes": "390x844",
+      "type": "image/jpeg",
+      "label": "Maroutine sur mobile"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Routines",
+      "short_name": "Routines",
+      "description": "Ouvrir les routines du jour",
+      "url": "/app/home",
+      "icons": [
+        {
+          "src": "/app/icons/icon-192-20260604.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Enfants",
+      "short_name": "Enfants",
+      "description": "Ouvrir les profils enfants",
+      "url": "/app/profiles",
+      "icons": [
+        {
+          "src": "/app/icons/icon-192-20260604.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

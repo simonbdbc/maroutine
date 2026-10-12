@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist/e13-t07-tests",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "target": "ES2019",
+    "isolatedModules": false
+  },
+  "include": [
+    "tests/e13-t07/**/*.ts",
+    "src/features/home/utils/homeResponsiveCore.ts",
+    "src/features/home/utils/homeLayoutMetrics.ts"
+  ]
+}

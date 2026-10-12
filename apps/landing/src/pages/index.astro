@@ -1,0 +1,180 @@
+---
+import babyDragon from "../../../pwa/assets/stickers/fantastic/baby-dragon.png";
+import phoenix from "../../../pwa/assets/stickers/fantastic/phoenix.png";
+import griffin from "../../../pwa/assets/stickers/default/griffin-sticker.png";
+import star from "../../../pwa/assets/stickers/default/star-sticker.png";
+import triceratops from "../../../pwa/assets/stickers/dino/triceratops.png";
+import appIcon from "../../../pwa/assets/icon.png";
+import desktopScreenshot from "../../../pwa/public/screenshots/install-desktop-wide.jpg";
+import mobileScreenshot from "../../../pwa/public/screenshots/install-mobile.jpg";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { siteConfig } from "../config/site.config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const benefits = [
+  {
+    number: "01",
+    title: "Des repères simples",
+    description:
+      "Matin, midi, soir : chaque étape trouve sa place dans une routine facile à suivre.",
+  },
+  {
+    number: "02",
+    title: "La motivation qui compte",
+    description: "Étoiles, stickers et récompenses rendent les progrès concrets, sans pression.",
+  },
+  {
+    number: "03",
+    title: "Une vue pour les parents",
+    description:
+      "Personnalisez les routines et retrouvez l’historique de chaque enfant au même endroit.",
+  },
+];
+
+const steps = [
+  "Créez le profil de votre enfant",
+  "Composez sa routine",
+  "Célébrez chaque progrès",
+];
+---
+
+<BaseLayout>
+  <SiteHeader />
+
+  <main id="contenu">
+    <section class="hero page-shell" aria-labelledby="hero-title">
+      <div class="hero__copy">
+        <h1 id="hero-title">Des routines plus douces. Des journées qui avancent.</h1>
+        <p class="hero__lead">
+          Maroutine aide les enfants à suivre leurs activités, gagner des étoiles et devenir plus
+          autonomes — sans transformer le quotidien en bataille.
+        </p>
+        <div class="hero__actions">
+          <a class="button button--primary" href={siteConfig.app.homePath}>
+            {siteConfig.cta.primary}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6"></path>
+            </svg>
+          </a>
+          <a class="text-link" href={siteConfig.app.loginPath}>J’ai déjà un compte</a>
+        </div>
+      </div>
+
+      <div class="hero-product" aria-label="Aperçu de l’application Maroutine sur mobile">
+        <div class="hero-product__backdrop" aria-hidden="true"></div>
+        <figure class="phone-frame">
+          <span class="phone-frame__speaker" aria-hidden="true"></span>
+          <img
+            src={mobileScreenshot.src}
+            alt="Accueil connecté de l’application Maroutine sur mobile avec la routine du jour"
+            width="390"
+            height="844"
+          />
+        </figure>
+        <img class="hero-product__app-icon" src={appIcon.src} alt="" width="112" height="112" />
+        <img class="hero-product__griffin" src={griffin.src} alt="" width="180" height="180" />
+        <img
+          class="hero-product__dragon"
+          src={babyDragon.src}
+          alt=""
+          width="150"
+          height="150"
+        />
+      </div>
+    </section>
+
+    <div class="wave wave--hero" aria-hidden="true"></div>
+
+    <section class="benefits" id="benefices" aria-labelledby="benefits-title">
+      <div class="page-shell">
+        <div class="section-heading section-heading--center">
+          <h2 id="benefits-title">Un cadre clair, à leur rythme.</h2>
+          <p>
+            Tout ce qu’il faut pour rendre la routine visible, motivante et adaptée à chaque enfant.
+          </p>
+        </div>
+
+        <div class="benefits-map">
+          <div class="benefits-map__line" aria-hidden="true"></div>
+          {benefits.map((benefit, index) => (
+            <article class:list={["benefit", `benefit--${index + 1}`]}>
+              <span class="benefit__number" aria-hidden="true">{benefit.number}</span>
+              <h3>{benefit.title}</h3>
+              <p>{benefit.description}</p>
+            </article>
+          ))}
+          <img class="benefits-map__star" src={star.src} alt="" width="168" height="168" />
+          <img
+            class="benefits-map__dino"
+            src={triceratops.src}
+            alt=""
+            width="190"
+            height="190"
+          />
+          <img
+            class="benefits-map__griffin"
+            src={griffin.src}
+            alt=""
+            width="180"
+            height="180"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="fonctionnement" aria-labelledby="how-title">
+      <div class="page-shell">
+        <div class="section-heading section-heading--center">
+          <h2 id="how-title">Trois étapes, puis on avance ensemble.</h2>
+        </div>
+
+        <ol class="steps">
+          {steps.map((step, index) => (
+            <li>
+              <span>{index + 1}</span>
+              <strong>{step}</strong>
+            </li>
+          ))}
+        </ol>
+
+        <figure class="desktop-preview">
+          <div class="desktop-preview__bar" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <div>app.maroutine.app/home</div>
+          </div>
+          <img
+            src={desktopScreenshot.src}
+            alt="Accueil connecté de l’application Maroutine sur ordinateur avec les routines du jour"
+            width="1280"
+            height="720"
+          />
+          <img class="desktop-preview__phoenix" src={phoenix.src} alt="" width="180" height="180" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="cta-title">
+      <div class="page-shell final-cta__inner">
+        <div>
+          <h2 id="cta-title">Prêt à alléger le quotidien&nbsp;?</h2>
+          <p>Retrouvez Maroutine et commencez votre prochaine routine.</p>
+        </div>
+        <div class="final-cta__actions">
+          <a class="button button--light" href={siteConfig.app.homePath}>
+            {siteConfig.cta.primary}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6"></path>
+            </svg>
+          </a>
+          <a class="text-link text-link--light" href={siteConfig.app.loginPath}>
+            {siteConfig.cta.secondary}
+          </a>
+        </div>
+      </div>
+      <span class="final-cta__star" aria-hidden="true">★</span>
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
