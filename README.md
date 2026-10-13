@@ -5,18 +5,19 @@ validation quotidienne, étoiles et récompenses. Le package porte la version 2.
 cette version déclarée ne constitue pas une qualification de release ou de production.
 
 Le développement reste sur [GitLab](https://gitlab.com/simonbdbc/maroutine).
-Une publication GitHub avec contenu filtré et historique neuf est prévue ; aucun
-miroir public n'est attesté par ce README.
+Le [miroir GitHub public](https://github.com/simonbdbc/maroutine) reçoit le contenu
+filtré dans un historique public séparé.
 
 Pour obtenir les sources :
 
 ```bash
-git clone https://gitlab.com/simonbdbc/maroutine.git
+git clone https://github.com/simonbdbc/maroutine.git
 cd maroutine
 ```
 
-L'accès GitLab requiert actuellement une autorisation privée. Les droits de
-redistribution du code et des stickers restent à confirmer avant publication.
+L'accès à la source de développement GitLab requiert une autorisation privée.
+Les droits de redistribution du code et des stickers restent à confirmer ;
+cette présentation n'accorde aucun droit nouveau.
 
 ## Architecture web
 
