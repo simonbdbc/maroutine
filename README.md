@@ -283,7 +283,7 @@ locales : sauvegarder les données nécessaires avant une réinitialisation.
 
 ## Synchronisation du dépôt de présentation
 
-La version publique est disponible sur https://github.com/simonbdbc/maroutine. Son historique est séparé de l’historique privé GitLab. Le job de publication exporte les fichiers autorisés depuis la branche dédiée `publication/github-main`, contrôle le contenu puis ajoute un commit à la suite du dernier commit public. Les anciennes branches, étiquettes, données privées et artefacts internes ne sont pas transférés. Les propositions de modification sont revues dans GitLab avant publication. Cette synchronisation des sources ne déploie pas l’application.
+La version publique est disponible sur https://github.com/simonbdbc/maroutine. Son historique est séparé de l’historique privé GitLab. Le job de publication exporte les fichiers autorisés depuis la branche dédiée `publication/github-main`, contrôle le contenu puis ajoute un commit à la suite du dernier commit public. Les anciennes branches, étiquettes, données privées et artefacts internes ne sont pas transférés. Les propositions de modification sont revues dans GitLab avant publication. Cette synchronisation des sources ne déploie pas l’application. Le job contrôlé vérifie la branche toutes les quinze minutes lorsque le Mac de publication est éveillé et connecté. La branche `publication/github-main` est exclue des builds Cloudflare.
 
 ## Périmètre public nettoyé
 
