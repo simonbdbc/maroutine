@@ -188,7 +188,7 @@ Variables optionnelles PWA :
 ```bash
 npm run tsc
 npm run pwa:contract:test
-npm run web:build:prod
+npm run web:build
 npm run validate:pwa
 npm run e2e:pwa
 ```

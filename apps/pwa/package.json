@@ -18,15 +18,11 @@
     "lint:tokens:legacy:strict": "node ./scripts/check-legacy-theme-tokens.cjs --strict",
     "qa:theme": "node ./scripts/check-inline-colors.cjs && node ./scripts/check-theme-contract.cjs && node ./scripts/check-theme-contrast.cjs && node ./scripts/check-theme-shell.cjs && node ./scripts/check-legacy-theme-tokens.cjs --strict",
     "web:env:check": "node ./scripts/check-web-env.cjs",
-    "web:build:prod": "node ./scripts/sync-public-stickers.cjs && node ./scripts/check-stickers-pages.cjs && node ./scripts/check-inline-colors.cjs && node ./scripts/check-theme-contract.cjs && node ./scripts/check-theme-contrast.cjs && node ./scripts/check-theme-shell.cjs && node ./scripts/check-web-env.cjs && rm -rf dist && CI=1 NODE_ENV=production EXPO_NO_TELEMETRY=1 npx expo export --platform web --output-dir dist --clear && node ./scripts/post-export-web.cjs",
-    "web:build:cloudflare": "EXPO_PUBLIC_APP_BASE_PATH=/ EXPO_PUBLIC_APP_URL=https://app.maroutine.app EXPO_PUBLIC_RELEASE_CHANNEL=production npm run web:build:prod",
     "web:serve:dist": "node ./scripts/serve-dist.mjs",
-    "web:serve:cloudflare": "EXPO_PUBLIC_APP_BASE_PATH=/ node ./scripts/serve-dist.mjs",
     "validate:pwa": "node ./scripts/validate-pwa.mjs",
-    "validate:cloudflare": "EXPO_PUBLIC_APP_BASE_PATH=/ EXPO_PUBLIC_APP_URL=https://app.maroutine.app node ./scripts/validate-pwa.mjs",
     "pwa:contract:test": "node --test ./scripts/pwa-lifecycle-contract.test.mjs",
     "e2e:pwa": "playwright test tests/e2e/pwa.spec.ts",
-    "e2e:pwa:build": "npm run web:build:prod && npm run validate:pwa && npm run e2e:pwa",
+    "e2e:pwa:build": "npm run web:build && npm run validate:pwa && npm run e2e:pwa",
     "tsc": "tsc --noEmit",
     "test:e8-r09": "tsc -p tsconfig.e8-r09.json && node -r ./tests/register-node-assets.cjs dist/e8-r09-tests/tests/e8-r09/run.js",
     "test:e9-r11": "tsc -p tsconfig.e9-r11.json && node -r ./tests/register-node-assets.cjs dist/e9-r11-tests/tests/e9-r11/run.js",
@@ -40,7 +36,8 @@
     "test:e16-rewards-history": "tsc -p tsconfig.e16-rewards-history.json && node dist/e16-rewards-history-tests/tests/e16-rewards-history/run.js",
     "test:e18-t06": "tsc -p tsconfig.e18-t06.json && node dist/e18-t06-tests/tests/e18-t06/run.js",
     "lint": "node ./scripts/check-inline-colors.cjs && node ./scripts/check-theme-contrast.cjs && ESLINT_USE_FLAT_CONFIG=false eslint . --ext .ts,.tsx",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"app/**/*.{ts,tsx}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"app/**/*.{ts,tsx}\"",
+    "web:build": "node ./scripts/sync-public-stickers.cjs && node ./scripts/check-stickers-pages.cjs && node ./scripts/check-inline-colors.cjs && node ./scripts/check-theme-contract.cjs && node ./scripts/check-theme-contrast.cjs && node ./scripts/check-theme-shell.cjs && node ./scripts/check-web-env.cjs && CI=1 NODE_ENV=production EXPO_NO_TELEMETRY=1 npx expo export --platform web --output-dir dist --clear && node ./scripts/post-export-web.cjs"
   },
   "dependencies": {
     "@expo-google-fonts/fredoka": "^0.2.3",

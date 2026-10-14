@@ -32,15 +32,6 @@ La PWA peut aussi être construite seule à la racine de
 La structure, les routes et la stratégie de déploiement sont documentées dans
 [docs/architecture.md](./docs/architecture.md).
 
-## Roadmap active
-
-- Source de vérité: [docs/roadmap/ROADMAP.md](./docs/roadmap/ROADMAP.md)
-- Backlog tickets: [docs/roadmap/TICKETS-GITLAB.md](./docs/roadmap/TICKETS-GITLAB.md)
-- EPIC PWA/Cloudflare: [docs/roadmap/EPIC1-pwa-cloudflare-pages.md](./docs/roadmap/EPIC1-pwa-cloudflare-pages.md)
-- Contrat PWA neutre: [docs/PWA-CONTRACT.md](./docs/PWA-CONTRACT.md)
-- État et mise en œuvre PWA: [docs/PWA-IMPLEMENTATION.md](./docs/PWA-IMPLEMENTATION.md)
-- Checklist stickers Pages (E1-T09): [docs/roadmap/EPIC1/E1-T09-stickers-pages-checklist.md](./docs/roadmap/EPIC1/E1-T09-stickers-pages-checklist.md)
-
 ## Vision produit
 
 - v1 prioritaire: PWA web-first/offline-first sur Cloudflare Pages (`maroutine.app`)
@@ -64,7 +55,7 @@ La structure, les routes et la stratégie de déploiement sont documentées dans
 cp apps/pwa/.env.example apps/pwa/.env.local
 ```
 
-Variables minimales pour build/deploy web:
+Variables minimales pour la recette web locale:
 
 - `EXPO_PUBLIC_SUPABASE_URL`
 - `EXPO_PUBLIC_SUPABASE_ANON_KEY`
@@ -189,7 +180,6 @@ npm run preview:landing
 npm run check:landing
 npm run dev:pwa
 npm run build:pwa
-npm run build:pwa:cloudflare
 
 npm run sync:stickers:public
 npm run lint:stickers:pages
@@ -203,12 +193,10 @@ npm run lint:tokens:legacy:strict
 npm run qa:theme
 
 npm run web:env:check
-npm run web:build:prod
+npm run web:build
 npm run web:serve:dist
 npm run pwa:contract:test
 npm run validate:pwa
-npm run validate:pwa:cloudflare
-npm run deploy:pwa:cloudflare
 npm run e2e:pwa
 npm run e2e:pwa:build
 
@@ -239,12 +227,12 @@ base existante exigent sauvegarde, revue et autorisation de migration.
 
 Pour une base existante, appliquer les migrations `docs/sql/migration-*.sql` dans l'ordre documenté dans le guide Supabase. La migration E16 ajoute `rewards`, `profile_rewards`, `balance_history`, `set_profile_balance` et `redeem_profile_reward`. E19 accorde uniquement les droits de table nécessaires à authenticated, avec les policies RLS existantes ; elle ne révoque pas les ACL anciennes. Le schéma neuf inclut ces droits sans dépendre des privilèges Supabase historiques.
 
-## Build web production (local)
+## Build web local
 
 Commande unique:
 
 ```bash
-npm run web:build:prod
+npm run web:build
 ```
 
 Cette commande enchaine:
@@ -269,74 +257,6 @@ Servir localement le build statique:
 npm run web:serve:dist
 ```
 
-## Procedure deploy Cloudflare Pages
-
-Reference detaillee:
-
-- [docs/deploy/cloudflare-pages-gitlab-runbook.md](./docs/deploy/cloudflare-pages-gitlab-runbook.md)
-- [docs/deploy/cloudflare-pwa-maroutine-app.md](./docs/deploy/cloudflare-pwa-maroutine-app.md)
-- [docs/deploy/web-production.md](./docs/deploy/web-production.md)
-
-Pour le projet PWA dédié à `app.maroutine.app`, utiliser :
-
-```bash
-npm run build:pwa:cloudflare
-npm run validate:pwa:cloudflare
-npm run deploy:pwa:cloudflare
-```
-
-### Preview (branche)
-
-1. pousser la branche (ex: `codex/epic1`)
-2. verifier le build Cloudflare Pages preview
-3. noter URL preview + SHA deploye
-4. valider les smoke tests
-
-### Production (`main`)
-
-1. merger sur `main`
-2. verifier le deploy production sur Cloudflare Pages
-3. valider les smoke tests de base
-4. surveiller erreurs 404/5xx
-
-## Smoke tests post-deploiement
-
-### Endpoints PWA de base
-
-```bash
-curl -I https://maroutine.app/
-curl -I https://maroutine.app/robots.txt
-curl -I https://maroutine.app/sitemap-index.xml
-curl -I https://maroutine.app/app/
-curl -I https://maroutine.app/app/manifest.webmanifest
-curl -I https://maroutine.app/app/icons/icon-192-20260604.png
-curl -I https://maroutine.app/app/pwa-build.json
-curl -I https://maroutine.app/app/service-worker.js
-curl -I https://maroutine.app/app/offline.html
-```
-
-### Endpoints stickers (E1-T09)
-
-```bash
-curl -I https://maroutine.app/app/stickers/default/star-sticker.png
-curl -I https://maroutine.app/app/stickers/dino/triceratops.png
-curl -I https://maroutine.app/app/stickers/fantastic/unicorn.png
-```
-
-Attendus:
-
-- `HTTP 200`
-- `content-type: image/*` (pas `text/html`)
-- `cache-control` coherent avec assets statiques (`immutable`)
-
-## Rollback (prod)
-
-1. identifier le dernier deploiement stable dans Cloudflare Pages
-2. redeployer ce build
-3. rejouer les smoke tests ci-dessus
-4. ouvrir un incident avec cause racine + actions correctives
-
-
 ## Modes, données et sécurité
 
 Le modèle produit est local-first ; les données locales persistent dans le
@@ -354,8 +274,7 @@ Voir [sécurité et validation SQL](docs/SECURITY.md).
 Le parcours cloud exige une instance Supabase de développement distincte,
 initialisée avec le schéma et des comptes synthétiques. Les fichiers `.env.local`
 restent privés. L'absence de configuration cloud ne prouve pas un parcours cloud
-fonctionnel. Les scripts `deploy:*` ciblent un service distant : ils ne font pas
-partie des tests de préparation locale.
+fonctionnel. Aucun script de publication distante n’est inclus dans cet export.
 
 Arrêter les serveurs de développement avec `Ctrl+C`. Le test SQL arrête et retire
 son cluster jetable automatiquement ; il ne touche ni aux données locales de la
@@ -365,3 +284,9 @@ locales : sauvegarder les données nécessaires avant une réinitialisation.
 ## Synchronisation du dépôt de présentation
 
 La version publique est disponible sur https://github.com/simonbdbc/maroutine. Son historique est séparé de l’historique privé GitLab. Le job de publication exporte les fichiers autorisés depuis la branche dédiée `publication/github-main`, contrôle le contenu puis ajoute un commit à la suite du dernier commit public. Les anciennes branches, étiquettes, données privées et artefacts internes ne sont pas transférés. Les propositions de modification sont revues dans GitLab avant publication. Cette synchronisation des sources ne déploie pas l’application.
+
+## Périmètre public nettoyé
+
+Les stickers de travail/debug, anciennes roadmaps, suivi de prospection et outils de déploiement/vérification de production restent privés. Les 42 stickers finaux et leurs variantes web/natives sont conservés. `npm run build` produit uniquement une sortie locale ; `npm run web:serve:dist` sert cette sortie. Aucun script Wrangler ni publication distante n’est inclus.
+
+[Périmètre de publication et exclusions de production](PUBLICATION.md).

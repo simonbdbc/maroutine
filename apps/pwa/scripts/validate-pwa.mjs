@@ -6,8 +6,7 @@ const distDir = path.join(projectRoot, "dist");
 const packageJson = JSON.parse(await readFile(path.join(projectRoot, "package.json"), "utf8"));
 const expectedVersion = String(packageJson.appVersion || packageJson.version);
 const appBasePath = normalizeBasePath(process.env.EXPO_PUBLIC_APP_BASE_PATH);
-const defaultSiteOrigin =
-  appBasePath === "/" ? "https://app.maroutine.app" : "https://maroutine.app";
+const defaultSiteOrigin = "http://127.0.0.1:4173";
 const productionOrigin = ensureAppOrigin(
   process.env.EXPO_PUBLIC_APP_URL || defaultSiteOrigin
 );

@@ -4,11 +4,6 @@ import path from "node:path";
 import test from "node:test";
 import ts from "typescript";
 import { fileURLToPath } from "node:url";
-import { assertCloudflareDeployEnvironment } from "./verify-cloudflare-deploy-env.mjs";
-import {
-  assertPublishedBuild,
-  assertServiceWorkerCacheControl,
-} from "./verify-production-deployment.mjs";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const readSource = (relativePath) => fs.readFile(path.join(projectRoot, relativePath), "utf8");
@@ -49,7 +44,6 @@ const [
   homeInstallHintSource,
   updatePromptSource,
   headersSource,
-  ciSource,
 ] = await Promise.all([
   readSource("package.json"),
   readSource("src/shared/pwa/appConfig.ts"),
@@ -71,7 +65,6 @@ const [
   readSource("src/features/home/components/PwaInstallHint.tsx"),
   readSource("src/shared/pwa/components/UpdateAvailablePrompt.tsx"),
   readSource("public/_headers"),
-  readSource("../../.gitlab-ci.yml"),
 ]);
 
 test("the package and runtime expose the same semantic app version", () => {
@@ -184,70 +177,8 @@ test("build id drives update detection", () => {
   assert.equal(hasRemoteBuildChanged(null, "build-n+1"), false);
 });
 
-test("every production deployment is checked and proposed as a distinct update", () => {
-  assert.match(buildSource, /process\.env\.CI_PIPELINE_ID/);
-  assert.match(ciSource, /BUILD_ID="production-\$\{CI_PIPELINE_ID\}-\$\{CI_COMMIT_SHORT_SHA\}"/);
-  assert.doesNotMatch(serviceWorkerLifecycleSource, /setInterval|UPDATE_CHECK_INTERVAL_MS/);
-  assert.match(
-    serviceWorkerLifecycleSource,
-    /register\(serviceWorkerUrl, \{ updateViaCache: "none" \}\)/
-  );
-  for (const browserEvent of ["focus", "online", "pageshow"]) {
-    assert.match(
-      serviceWorkerLifecycleSource,
-      new RegExp(`addEventListener\\("${browserEvent}", checkForLatestDeployment\\)`)
-    );
-  }
-  assert.match(headersSource, /service-worker\.js[\s\S]{0,140}Cache-Control: no-store/);
-  assert.match(updatePromptSource, /remoteBuildInfo\.buildId/);
-});
 
-test("main cannot silently skip the Cloudflare PWA deployment", () => {
-  const deployJobSource = ciSource.slice(ciSource.indexOf("pwa:deploy:cloudflare:"));
-  assert.match(deployJobSource, /if: '\$CI_COMMIT_BRANCH == \$CI_DEFAULT_BRANCH'/);
-  assert.doesNotMatch(deployJobSource, /CLOUDFLARE_API_TOKEN !=/);
-  assert.match(deployJobSource, /npm run validate:pwa:deploy-env/);
-  assert.match(deployJobSource, /npm run verify:pwa:production/);
 
-  assert.throws(
-    () => assertCloudflareDeployEnvironment({}),
-    /CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN/
-  );
-  assert.doesNotThrow(() =>
-    assertCloudflareDeployEnvironment({
-      CLOUDFLARE_ACCOUNT_ID: "account-id",
-      CLOUDFLARE_API_TOKEN: "masked-token",
-    })
-  );
-});
-
-test("post-deploy verification rejects stale builds and cached service workers", () => {
-  const expectedBuild = {
-    appVersion: "2.1.2",
-    buildId: "production-42-abcdef12",
-    commitSha: "abcdef123456",
-    releaseChannel: "production",
-  };
-  assert.doesNotThrow(() =>
-    assertPublishedBuild({ ...expectedBuild }, expectedBuild, "https://app.example.test")
-  );
-  assert.throws(
-    () =>
-      assertPublishedBuild(
-        { ...expectedBuild, buildId: "previous-build" },
-        expectedBuild,
-        "https://app.example.test"
-      ),
-    /previous-build/
-  );
-  assert.doesNotThrow(() =>
-    assertServiceWorkerCacheControl("no-store, max-age=0", "https://app.example.test")
-  );
-  assert.throws(
-    () => assertServiceWorkerCacheControl("max-age=14400", "https://app.example.test"),
-    /must be served with Cache-Control: no-store/
-  );
-});
 
 test("controller reload requires explicit update consent", () => {
   assert.equal(shouldReloadAfterControllerChange(false), false);
@@ -307,4 +238,21 @@ test("generated service worker versions the shell by build and bypasses API traf
   assert.match(buildSource, /url\.pathname\.includes\(\"\/api\/\"\)/);
   assert.match(buildSource, /url\.pathname\.includes\(\"\/auth\/\"\)/);
   assert.doesNotMatch(buildSource, /isOfflineAssetUrl[\s\S]{0,180}startsWith\(\"\/stickers\/\"\)/);
+});
+
+test("local exported builds preserve PWA update detection", () => {
+  assert.match(buildSource, /process\.env\.CI_PIPELINE_ID/);
+  assert.doesNotMatch(serviceWorkerLifecycleSource, /setInterval|UPDATE_CHECK_INTERVAL_MS/);
+  assert.match(
+    serviceWorkerLifecycleSource,
+    /register\(serviceWorkerUrl, \{ updateViaCache: "none" \}\)/
+  );
+  for (const browserEvent of ["focus", "online", "pageshow"]) {
+    assert.match(
+      serviceWorkerLifecycleSource,
+      new RegExp(`addEventListener\\("${browserEvent}", checkForLatestDeployment\\)`)
+    );
+  }
+  assert.match(headersSource, /service-worker\.js[\s\S]{0,140}Cache-Control: no-store/);
+  assert.match(updatePromptSource, /remoteBuildInfo\.buildId/);
 });

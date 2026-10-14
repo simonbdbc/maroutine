@@ -99,7 +99,7 @@ https://maroutine.app/      landing
 https://maroutine.app/app/  PWA
 ```
 
-Cloudflare Pages conserve la commande `npm run web:build:prod` et le dossier de
+Cloudflare Pages conserve la commande `npm run web:build` et le dossier de
 sortie `dist`. GitLab CI installe une seule fois les workspaces npm, vérifie
 Astro et la PWA, construit l'artefact commun puis exécute les E2E PWA sur
 `/app`. Le fichier `wrangler.jsonc` racine décrit ce projet `maroutine`.

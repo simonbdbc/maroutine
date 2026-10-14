@@ -15,19 +15,13 @@
     "preview:landing": "npm run preview --workspace @maroutine/landing",
     "check:landing": "npm run check --workspace @maroutine/landing",
     "dev:pwa": "npm run web --workspace @maroutine/pwa",
-    "build:pwa": "npm run web:build:prod --workspace @maroutine/pwa",
-    "build:pwa:cloudflare": "npm run web:build:cloudflare --workspace @maroutine/pwa",
+    "build:pwa": "npm run web:build --workspace @maroutine/pwa",
     "test:pwa": "npm run pwa:contract:test --workspace @maroutine/pwa",
     "lint:pwa": "npm run lint --workspace @maroutine/pwa",
     "build": "npm run build:landing && npm run build:pwa && node ./scripts/assemble-dist.mjs",
-    "web:build:prod": "npm run build",
     "web:serve:dist": "node ./scripts/serve-dist.mjs",
     "validate:landing": "node ./scripts/validate-landing.mjs",
     "validate:pwa": "npm run validate:pwa --workspace @maroutine/pwa && node ./scripts/validate-combined-dist.mjs",
-    "validate:pwa:cloudflare": "npm run validate:cloudflare --workspace @maroutine/pwa",
-    "validate:pwa:deploy-env": "node ./apps/pwa/scripts/verify-cloudflare-deploy-env.mjs",
-    "verify:pwa:production": "node ./apps/pwa/scripts/verify-production-deployment.mjs",
-    "deploy:pwa:cloudflare": "npm run build:pwa:cloudflare && npm run validate:pwa:cloudflare && wrangler pages deploy dist --cwd apps/pwa --project-name maroutine-app --branch main && npm run verify:pwa:production",
     "validate": "npm run validate:landing && npm run validate:pwa",
     "e2e:pwa": "npm run e2e:pwa --workspace @maroutine/pwa",
     "e2e:pwa:build": "npm run build && npm run validate && npm run e2e:pwa",
@@ -68,9 +62,7 @@
     "unrs-resolver@1.11.1": true,
     "sharp@0.35.5": true
   },
-  "devDependencies": {
-    "wrangler": "4.86.0"
-  },
+  "devDependencies": {},
   "overrides": {
     "sharp": "0.35.5"
   }

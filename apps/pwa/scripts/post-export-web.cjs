@@ -12,12 +12,11 @@ const PACKAGE_JSON_PATH = path.join(ROOT, "package.json");
 const CACHE_PREFIX = "maroutine";
 const SOURCE_APP_BASE_PATH = "/app";
 const APP_BASE_PATH = normalizeBasePath(process.env.EXPO_PUBLIC_APP_BASE_PATH);
-const DEFAULT_SITE_ORIGIN =
-  APP_BASE_PATH === "/" ? "https://app.maroutine.app" : "https://maroutine.app";
+const DEFAULT_SITE_ORIGIN = "http://127.0.0.1:4173";
 const PRODUCTION_ORIGIN = ensureAppOrigin(
   process.env.EXPO_PUBLIC_APP_URL || DEFAULT_SITE_ORIGIN
 );
-const DEFAULT_SUPPORT_CONTACT = "contact@maroutine.app";
+const DEFAULT_SUPPORT_CONTACT = "Démonstration locale";
 const HEX_COLOR_REGEX = /^#[0-9A-Fa-f]{6}$/;
 
 const FILES_TO_COPY = [
@@ -95,14 +94,7 @@ function createBuildInfo() {
     process.env.CF_PAGES_BRANCH ||
     readGitValue(["rev-parse", "--abbrev-ref", "HEAD"], "");
   const isCiBuild = Boolean(process.env.CI || process.env.CF_PAGES);
-  const releaseChannel =
-    process.env.EXPO_PUBLIC_RELEASE_CHANNEL ||
-    process.env.CI_ENVIRONMENT_NAME ||
-    (isCiBuild && branch === "main"
-      ? "production"
-      : isCiBuild && branch
-        ? "preview"
-        : "development");
+  const releaseChannel = "public-preview";
   const buildId =
     process.env.BUILD_ID ||
     process.env.CI_PIPELINE_ID ||
